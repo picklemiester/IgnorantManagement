@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ignorant Management</title>
+    <style>
+        body {
+            background-color: black;
+            color: green;
+            font-family: monospace;
+            text-align: center;
+            padding-top: 50px;
+        }
+        #terminal {
+            width: 80%;
+            margin: auto;
+            border: 2px solid green;
+            padding: 20px;
+            text-align: left;
+            max-width: 600px;
+            background-color: black;
+            min-height: 200px;
+            display: none;
+        }
+        input {
+            background: none;
+            border: none;
+            color: green;
+            font-family: monospace;
+            width: 100%;
+            outline: none;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>ACCESS DENIED</h1>
+    <p>Unauthorized personnel will be ignored.</p>
+    
+    <div id="passwordScreen">
+        <p>Enter password to proceed:</p>
+        <input type="text" id="passwordInput" autofocus>
+    </div>
+    
+    <div id="terminal">
+        <p>> Enter command:</p>
+        <input type="text" id="commandInput">
+        <div id="output"></div>
+    </div>
+    
+    <script>
+        document.getElementById("passwordInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                if (this.value.trim() === "Ignorant management inc") {
+                    document.getElementById("passwordScreen").style.display = "none";
+                    document.getElementById("terminal").style.display = "block";
+                } else {
+                    alert("ACCESS DENIED");
+                    this.value = "";
+                }
+            }
+        });
+
+        document.getElementById("commandInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                let input = this.value.toLowerCase().trim();
+                let output = document.getElementById("output");
+                this.value = "";
+
+                if (input === "initiate") {
+                    output.innerHTML += "<p>> Initiating protocol...</p>";
+                    setTimeout(() => {
+                        output.innerHTML += "<p>> Error. Management does not recognize your authority.</p>";
+                    }, 1000);
+                } else if (input === "help") {
+                    output.innerHTML += "<p>> No help is available.</p>";
+                } else if (input === "whoami") {
+                    output.innerHTML += "<p>> Unknown entity. You do not exist.</p>";
+                } else {
+                    output.innerHTML += "<p>> Ignored.</p>";
+                }
+            }
+        });
+    </script>
+</body>
+</html>
